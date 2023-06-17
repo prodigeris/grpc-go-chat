@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/prodigeris/grpc-go-chat/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"net"
@@ -13,7 +14,7 @@ type server struct {
 	pb.UnimplementedTranscriptServer
 }
 
-func (s *server) GetBookList(ctx context.Context, in *pb.GetMessageListRequest) (*pb.GetMessageListResponse, error) {
+func (s *server) GetChat(ctx context.Context, in *pb.GetMessageListRequest) (*pb.GetMessageListResponse, error) {
 	return &pb.GetMessageListResponse{
 		Messages: getSampleMessages(),
 	}, nil
@@ -49,7 +50,9 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterTranscriptServer(s, &server{})
+	reflection.Register(s)
 	if err := s.Serve(listener); err != nil {
+
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
