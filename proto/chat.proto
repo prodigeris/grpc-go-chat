@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "chat/pb";
+
+message Participant {
+  string id = 1;
+  string name = 2;
+}
+
+message Message {
+  string text = 1;
+  Participant author = 2;
+  google.protobuf.Timestamp date = 3;
+}
+
+message GetMessageListRequest {}
+message GetMessageListResponse { repeated Message books = 1; }
+
+service Transcript {
+  rpc GetChat(GetMessageListRequest) returns (GetMessageListResponse) {}
+}
