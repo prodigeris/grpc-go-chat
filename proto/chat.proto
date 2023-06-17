@@ -16,7 +16,7 @@ message Message {
 }
 
 message GetMessageListRequest {}
-message GetMessageListResponse { repeated Message books = 1; }
+message GetMessageListResponse { repeated Message messages = 1; }
 
 service Transcript {
   rpc GetChat(GetMessageListRequest) returns (GetMessageListResponse) {}
