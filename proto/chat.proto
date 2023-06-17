@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "chat/pb";
+option go_package = "server/pb";
 
 message Participant {
   string id = 1;
