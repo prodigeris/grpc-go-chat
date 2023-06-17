@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/prodigeris/grpc-go-chat/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"log"
 	"net"
 )
@@ -19,7 +20,25 @@ func (s *server) GetBookList(ctx context.Context, in *pb.GetMessageListRequest) 
 }
 
 func getSampleMessages() []*pb.Message {
-	return []*pb.Message{}
+	arnas := &pb.Participant{Id: "1", Name: "Arnas"}
+	petras := &pb.Participant{Id: "2", Name: "Petras"}
+	return []*pb.Message{
+		&pb.Message{
+			Text:   "Labas, as Arnas",
+			Author: arnas,
+			Date:   &timestamppb.Timestamp{Seconds: 1687023330},
+		},
+		&pb.Message{
+			Text:   "How are you?",
+			Author: arnas,
+			Date:   &timestamppb.Timestamp{Seconds: 1687023340},
+		},
+		&pb.Message{
+			Text:   "I'm good!",
+			Author: petras,
+			Date:   &timestamppb.Timestamp{Seconds: 1687023342},
+		},
+	}
 }
 
 func main() {
